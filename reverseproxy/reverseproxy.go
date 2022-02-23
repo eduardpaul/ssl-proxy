@@ -13,6 +13,7 @@ func Build(toURL *url.URL) *httputil.ReverseProxy {
 	addProxyHeaders := func(req *http.Request) {
 		req.Header.Set(http.CanonicalHeaderKey("X-Forwarded-Proto"), "https")
 		req.Header.Set(http.CanonicalHeaderKey("X-Forwarded-Port"), "443") // TODO: inherit another port if needed
+		req.Header.Set(http.CanonicalHeaderKey("Front-End-Https"), "On") // Microsoft SharePoint required header
 	}
 	localProxy.Director = newDirector(toURL, addProxyHeaders)
 
